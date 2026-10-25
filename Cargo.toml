@@ -1,0 +1,20 @@
+[package]
+name = "bandhop"
+version = "0.1.2"
+edition = "2021"
+rust-version = "1.74"
+authors = ["Bandhop contributors"]
+description = "A lightweight, keyboard-driven internet radio player for Linux"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/husamettinarabaci/bandhop"
+keywords = ["radio", "linux", "cli", "internet-radio", "systemd"]
+categories = ["command-line-utilities", "multimedia::audio"]
+exclude = [".github/", "packaging/", "scripts/"]
+
+[dependencies]
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = "symbols"

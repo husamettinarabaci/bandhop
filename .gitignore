@@ -1,0 +1,8 @@
+/target/
+/pkg/
+/src/pkg/
+/*.pkg.tar.*
+/*.tar.gz
+*.swp
+*.tmp
+.DS_Store

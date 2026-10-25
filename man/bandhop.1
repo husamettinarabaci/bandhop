@@ -1,0 +1,53 @@
+.TH BANDHOP 1 "October 2026" "Bandhop 0.1.2" "User Commands"
+.SH NAME
+bandhop \- terminal-first internet radio controller for Linux
+.SH SYNOPSIS
+.B bandhop
+.I COMMAND
+.SH DESCRIPTION
+Bandhop is a Rust internet radio player that manages stations from a local configuration file and delegates audio playback to mpv. A per-user foreground session or optional systemd service receives commands on a private Unix socket. Playback never starts automatically on daemon startup.
+.SH COMMANDS
+.TP
+.B init
+Create a default empty station configuration.
+.TP
+.B listen
+Run a foreground interactive session (p=toggle, n=next, s=status, q=quit, each followed by Enter).
+.TP
+.B daemon
+Run the control daemon (suitable for a systemd user service).
+.TP
+.B play | stop | toggle | next | status
+Control a running Bandhop instance. Next advances circularly and does not start a stopped player.
+.TP
+.B stations list | add NAME URL | remove ID | move ID POSITION
+Manage the ordered channel library.
+.TP
+.B config path | show | edit | validate | reload
+Manage the configuration.
+.TP
+.B service install | enable | disable | status | uninstall
+Manage the optional systemd user service.
+.TP
+.B keys show | check | setup
+Print and inspect KDE Plasma shortcut setup instructions. F13 toggles; F14 advances to the next station.
+.SH FILES
+.TP
+.I ~/.config/bandhop/config.toml
+Station configuration (respecting XDG_CONFIG_HOME).
+.TP
+.I ~/.local/state/bandhop/state
+Selected station ID (respecting XDG_STATE_HOME).
+.TP
+.I $XDG_RUNTIME_DIR/bandhop-runtime/control.sock
+Local control socket.
+.SH SEE ALSO
+.BR mpv (1),
+.BR systemctl (1)
+.SH LICENSE
+MIT OR Apache-2.0
+
+.SH NOTIFICATIONS
+.TP
+.B bandhop notify test
+Send a normal-urgency test notification through the active daemon. KDE Plasma controls popup visibility.

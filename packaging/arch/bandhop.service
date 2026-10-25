@@ -1,0 +1,13 @@
+[Unit]
+Description=Bandhop user internet radio controller
+After=pipewire.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/bandhop daemon
+Restart=on-failure
+RestartSec=2
+KillMode=control-group
+
+[Install]
+WantedBy=default.target

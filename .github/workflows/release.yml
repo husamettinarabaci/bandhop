@@ -1,0 +1,27 @@
+name: Build release on tag
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Test
+        run: cargo test --locked
+      - name: Build
+        run: cargo build --release --locked
+      - name: Create source tarball and checksum
+        run: |
+          mkdir -p dist
+          tar --exclude='./.git' --exclude='./target' --exclude='./dist' -czf "dist/bandhop-${GITHUB_REF_NAME#v}.tar.gz" --transform="s,^\.,bandhop-${GITHUB_REF_NAME#v}," .
+          (cd dist && sha256sum *.tar.gz > SHA256SUMS)
+          cp target/release/bandhop dist/bandhop-linux-x86_64
+          (cd dist && sha256sum bandhop-linux-x86_64 >> SHA256SUMS)
+      - name: Publish release artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/* --title "$GITHUB_REF_NAME" --generate-notes --verify-tag

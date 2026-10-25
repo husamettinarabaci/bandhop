@@ -1,0 +1,27 @@
+name: Rust CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - name: Build
+        run: cargo build --locked --all-targets
+      - name: Unit tests
+        run: cargo test --locked
+      - name: Smoke test
+        run: ./scripts/smoke-test.sh
+      - name: Clippy diagnostics
+        run: cargo clippy --locked --all-targets
+      - name: Formatting report
+        run: cargo fmt --all -- --check
+        continue-on-error: true # Promote to blocking after initial rustfmt pass.

@@ -1,0 +1,28 @@
+name: Bug report
+description: Report a reproducible Bandhop defect
+labels: [bug]
+body:
+  - type: textarea
+    id: issue
+    attributes:
+      label: What happened?
+      description: Include the expected behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Linux distribution, desktop and Bandhop version
+      placeholder: CachyOS / KDE Plasma Wayland / v0.1.1
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant terminal output
+      description: Remove private data before sharing.
+      render: shell

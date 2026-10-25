@@ -1,0 +1,19 @@
+# Replace URLs with actual radio stream URLs before playing.
+[playback]
+volume = 60
+
+[notifications]
+enabled = true
+on_play = true
+on_stop = true
+on_change = true
+
+[[stations]]
+id = "american-news"
+name = "American English News"
+url = "https://DIRECT-STREAM-URL"
+
+[[stations]]
+id = "world-service"
+name = "World Service English"
+url = "https://DIRECT-STREAM-URL"
